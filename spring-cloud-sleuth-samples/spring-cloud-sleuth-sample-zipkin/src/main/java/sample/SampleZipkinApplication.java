@@ -40,7 +40,7 @@ public class SampleZipkinApplication {
 	public static final String CLIENT_NAME = "testApp";
 
 	@Bean
-	public Sampler<?> defaultSampler() {
+	public Sampler defaultSampler() {
 		return new AlwaysSampler();
 	}
 

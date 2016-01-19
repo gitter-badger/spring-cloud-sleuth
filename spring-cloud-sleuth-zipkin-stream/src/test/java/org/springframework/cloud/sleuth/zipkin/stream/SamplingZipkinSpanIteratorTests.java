@@ -17,7 +17,6 @@ package org.springframework.cloud.sleuth.zipkin.stream;
 
 import io.zipkin.Sampler;
 import org.junit.Test;
-import org.springframework.cloud.sleuth.MilliSpan;
 import org.springframework.cloud.sleuth.Span;
 import org.springframework.cloud.sleuth.stream.Host;
 import org.springframework.cloud.sleuth.stream.Spans;
@@ -36,7 +35,7 @@ public class SamplingZipkinSpanIteratorTests {
 
   @Test
   public void skipsInputSpans() {
-    Spans spans = new Spans(host, Arrays.asList(span("message/sleuth")));
+    Spans spans = new Spans(host, Collections.singletonList(span("message/sleuth")));
 
     Iterator<io.zipkin.Span> result = new SamplingZipkinSpanIterator(Sampler.create(1.0f), spans);
 
@@ -71,6 +70,7 @@ public class SamplingZipkinSpanIteratorTests {
 
   Span span(String name) {
     Long id = new Random().nextLong();
-    return new MilliSpan(1, 3, name, id, Collections.<Long>emptyList(), id, true, true, "process");
+    return new Span(1, 3, name, id, Collections.<Long>emptyList(), id, true, true,
+            "process");
   }
 }
